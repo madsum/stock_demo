@@ -1,0 +1,5 @@
+com\ma\home\model\Stock.class
+com\ma\home\application\StockApplication$1.class
+com\ma\home\application\StockApplication$MyUIServlet.class
+com\ma\home\service\StockService.class
+com\ma\home\application\StockApplication.class

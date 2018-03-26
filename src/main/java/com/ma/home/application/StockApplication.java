@@ -14,6 +14,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,10 +106,26 @@ public class StockApplication extends UI {
         chart.setWidth("1200px");
         chart.setHeight("500px");
         Configuration conf = chart.getConfiguration();
-        conf.setTitle("");
+        conf.setTitle("Apple Inc. (AAPL) Stock Prices from NASDAQ");
         conf.setSubTitle("Demo Vaadin Application for FA Solution");
 
+
+        List<String> listDate = new ArrayList<>();
+        List<Number> listOpen = new ArrayList<>();
+        List<Number> listHigh = new ArrayList<>();
+        List<Number> listLow = new ArrayList<>();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
+        for (int i = 0; i < 15; /*stockService.getStock().getStockElementList().size();*/ i++) {
+            String onlyDate = fmt.print(stockService.getStock().getStockElementList().get(i).getDate());
+            listDate.add(onlyDate);
+            listOpen.add(stockService.getStock().getStockElementList().get(i).getOpen());
+            listHigh.add(stockService.getStock().getStockElementList().get(i).getHigh());
+            listLow.add(stockService.getStock().getStockElementList().get(i).getLow());
+        }
+        String[] arrayDate = new String[listDate.size()];
+        arrayDate = listDate.toArray(arrayDate);
         XAxis x = new XAxis();
+        x.setCategories(arrayDate);
         x.setTitle("DATES");
         x.setMin(0);
         conf.addxAxis(x);
@@ -135,25 +154,13 @@ public class StockApplication extends UI {
         plot.setPointPadding(0.2);
         plot.setBorderWidth(0);
 
-        List<Number> listOpen = new ArrayList<>();
-        List<Number> listHigh = new ArrayList<>();
-        List<Number> listLow = new ArrayList<>();
-        //List<Number> listVolume = new ArrayList<>();
-        for (int i = 0; i < stockService.getStock().getStockElementList().size(); i++) {
-            listOpen.add(stockService.getStock().getStockElementList().get(i).getOpen());
-            listHigh.add(stockService.getStock().getStockElementList().get(i).getHigh());
-            listLow.add(stockService.getStock().getStockElementList().get(i).getLow());
-            //listVolume.add(stockService.getStock().getStockElementList().get(i).getVolume());
-        }
         ListSeries openSeries = new ListSeries("Stock Open Price", listOpen);
         ListSeries highSeries = new ListSeries("Stock High Price", listHigh);
         ListSeries lowSeries = new ListSeries("Stock Low Price", listLow);
-        //ListSeries volumSeries = new ListSeries("Stock Volumes", listVolume);
 
         conf.addSeries(openSeries);
         conf.addSeries(highSeries);
         conf.addSeries(lowSeries);
-        //conf.addSeries(volumSeries);
 
         chart.drawChart(conf);
         return chart;
