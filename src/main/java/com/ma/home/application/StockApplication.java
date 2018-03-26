@@ -1,7 +1,6 @@
 package com.ma.home.application;
 
 import javax.servlet.annotation.WebServlet;
-
 import com.ma.home.model.Stock;
 import com.ma.home.service.StockService;
 import com.vaadin.addon.charts.Chart;
@@ -14,7 +13,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -42,7 +40,6 @@ public class StockApplication extends UI {
     @VaadinServletConfiguration(ui = StockApplication.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
-
 
     private void setupLayout() {
         layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
@@ -82,7 +79,8 @@ public class StockApplication extends UI {
         timer.scheduleWithFixedDelay(new Runnable() {
             public void run() {
                 ui.access((() -> {
-                    checkDownloadStatus();}));
+                    checkDownloadStatus();
+                }));
             }
         }, 1, 1, TimeUnit.SECONDS);
     }
@@ -108,7 +106,6 @@ public class StockApplication extends UI {
         Configuration conf = chart.getConfiguration();
         conf.setTitle("Apple Inc. (AAPL) Stock Prices from NASDAQ");
         conf.setSubTitle("Demo Vaadin Application for FA Solution");
-
 
         List<String> listDate = new ArrayList<>();
         List<Number> listOpen = new ArrayList<>();

@@ -1,11 +1,8 @@
 package com.ma.home.model;
 
-
 import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Stock {
     private DateTime date;
