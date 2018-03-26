@@ -1,4 +1,4 @@
-package com.ma.home.application.model;
+package com.ma.home.model;
 
 
 import org.joda.time.DateTime;

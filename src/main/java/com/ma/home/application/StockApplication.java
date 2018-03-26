@@ -12,7 +12,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
